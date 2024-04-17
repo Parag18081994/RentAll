@@ -9,70 +9,73 @@ import java.util.*;
 
 @Entity
 public class Product {
+
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
 
-    @Column(name="title")
+    @Column(name = "title")
     private String title;
 
-    @Column(name="description")
+    @Column(name = "description")
     private String description;
 
-    @Column(name="price")
+    @Column(name = "price")
     private int price;
 
-    @Column(name="discounted_price")
+    @Column(name = "discounted_price")
     private int discountedPrice;
 
-    @Column(name="discount_present")
-    private int discountPresent;
+    @Column(name = "discount_persent")
+    private int discountPersent;
 
-    @Column(name="quantity")
+    @Column(name = "quantity")
     private int quantity;
 
-    @Column(name="brand")
+    @Column(name = "brand")
     private String brand;
 
-
-    @Column(name="color")
+    @Column(name = "color")
     private String color;
 
     @Embedded
     @ElementCollection
-    @Column(name="sizes")
-    private Set<Size> sizes=new HashSet<> ();
+    @Column(name = "sizes")
+    private Set<Size> sizes = new HashSet<>();
 
-    @Column(name="imageUrl")
+    @Column(name = "image_url")
     private String imageUrl;
 
-    @OneToMany(mappedBy = "product",cascade = CascadeType.ALL,orphanRemoval = true)
-    private List<Rating>ratings=new ArrayList<>();
+    @OneToMany(mappedBy = "product", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<Rating> ratings = new ArrayList<>();
 
+    @OneToMany(mappedBy = "product", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<Review> reviews = new ArrayList<>();
 
-    @OneToMany(mappedBy = "product",cascade = CascadeType.ALL,orphanRemoval = true)
-    private List<Review>reviews=new ArrayList<>();
-
-    @Column(name="num_ratings")
+    @Column(name = "num_ratings")
     private int numRatings;
 
-    @ManyToOne()
-    @JoinColumn(name="category_id")
-    private Category category;
 
+    @ManyToOne()
+    @JoinColumn(name = "category_id")
+    private Category category;
 
     private LocalDateTime createdAt;
 
     public Product() {
+
     }
 
-    public Product(Long id, String title, String description, int price, int discountedPrice, int discountedPresent, int quantity, String brand, String color, Set<Size> sizes, String imageUrl, List<Rating> ratings, List<Review> reviews, int numRatings, Category category, LocalDateTime createdAt) {
+    public Product(Long id, String title, String description, int price, int discountedPrice, int discountPersent,
+                   int quantity, String brand, String color, Set<Size> sizes, String imageUrl, List<Rating> ratings,
+                   List<Review> reviews, int numRatings, Category category, LocalDateTime createdAt) {
+        super();
         this.id = id;
         this.title = title;
         this.description = description;
         this.price = price;
         this.discountedPrice = discountedPrice;
-        this.discountPresent = discountedPresent;
+        this.discountPersent = discountPersent;
         this.quantity = quantity;
         this.brand = brand;
         this.color = color;
@@ -85,14 +88,28 @@ public class Product {
         this.createdAt = createdAt;
     }
 
-
-
-    public Long getId() {
-        return id;
+    public LocalDateTime getCreatedAt() {
+        return createdAt;
     }
 
-    public void setId(Long id) {
-        this.id = id;
+    public void setCreatedAt(LocalDateTime createdAt) {
+        this.createdAt = createdAt;
+    }
+
+    public List<Rating> getRatings() {
+        return ratings;
+    }
+
+    public void setRatings(List<Rating> ratings) {
+        this.ratings = ratings;
+    }
+
+    public List<Review> getReviews() {
+        return reviews;
+    }
+
+    public void setReviews(List<Review> reviews) {
+        this.reviews = reviews;
     }
 
     public String getTitle() {
@@ -101,6 +118,14 @@ public class Product {
 
     public void setTitle(String title) {
         this.title = title;
+    }
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
     }
 
     public String getDescription() {
@@ -127,12 +152,12 @@ public class Product {
         this.discountedPrice = discountedPrice;
     }
 
-    public int getDiscountPresent() {
-        return discountPresent;
+    public int getDiscountPersent() {
+        return discountPersent;
     }
 
-    public void setDiscountPresent(int discountPresent) {
-        this.discountPresent = discountPresent;
+    public void setDiscountPersent(int discountPersent) {
+        this.discountPersent = discountPersent;
     }
 
     public int getQuantity() {
@@ -159,36 +184,12 @@ public class Product {
         this.color = color;
     }
 
-    public Set<Size> getSizes() {
-        return sizes;
-    }
-
-    public void setSizes(Set<Size> sizes) {
-        this.sizes = sizes;
-    }
-
     public String getImageUrl() {
         return imageUrl;
     }
 
     public void setImageUrl(String imageUrl) {
         this.imageUrl = imageUrl;
-    }
-
-    public List<Rating> getRatings() {
-        return ratings;
-    }
-
-    public void setRatings(List<Rating> ratings) {
-        this.ratings = ratings;
-    }
-
-    public List<Review> getReviews() {
-        return reviews;
-    }
-
-    public void setReviews(List<Review> reviews) {
-        this.reviews = reviews;
     }
 
     public int getNumRatings() {
@@ -207,16 +208,17 @@ public class Product {
         this.category = category;
     }
 
-    public LocalDateTime getCreatedAt() {
-        return createdAt;
+    public Set<Size> getSizes() {
+        return sizes;
     }
 
-    public void setCreatedAt(LocalDateTime createdAt) {
-        this.createdAt = createdAt;
+    public void setSizes(Set<Size> sizes) {
+        this.sizes = sizes;
     }
 
+    @Override
     public int hashCode() {
-        return Objects.hash(brand, category, color, description, discountPresent, discountedPrice, id, imageUrl,
+        return Objects.hash(brand, category, color, description, discountPersent, discountedPrice, id, imageUrl,
                 numRatings, price, quantity, ratings, reviews, sizes, title);
     }
 
@@ -231,10 +233,11 @@ public class Product {
         Product other = (Product) obj;
         return Objects.equals(brand, other.brand) && Objects.equals(category, other.category)
                 && Objects.equals(color, other.color) && Objects.equals(description, other.description)
-                && discountPresent == other.discountPresent && discountedPrice == other.discountedPrice
+                && discountPersent == other.discountPersent && discountedPrice == other.discountedPrice
                 && Objects.equals(id, other.id) && Objects.equals(imageUrl, other.imageUrl)
                 && numRatings == other.numRatings && price == other.price && quantity == other.quantity
                 && Objects.equals(ratings, other.ratings) && Objects.equals(reviews, other.reviews)
                 && Objects.equals(sizes, other.sizes) && Objects.equals(title, other.title);
     }
+
 }

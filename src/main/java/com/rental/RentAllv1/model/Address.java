@@ -61,10 +61,6 @@ public class Address {
         this.streetAddress = streetAddress;
     }
 
-
-
-
-
     public long getId() {
         return id;
     }
