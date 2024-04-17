@@ -13,6 +13,7 @@ import org.springframework.stereotype.Component;
 public class RentAllv1Application {
 
 	public static void main(String[] args) {
+
 		SpringApplication.run(RentAllv1Application.class, args);
 	}
 
