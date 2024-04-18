@@ -5,17 +5,19 @@ import jakarta.persistence.Column;
 
 import java.time.LocalDate;
 
-public class PayementInformation {
-    @Column (name = "cardholder_name")
+public class PaymentInformation {
+
+    @Column(name = "cardholder_name")
     private String cardholderName;
 
-    @Column (name = "card_number")
+    @Column(name = "card_number")
     private String cardNumber;
 
-    @Column (name = "expiration_date")
+    @Column(name = "expiration_date")
     private LocalDate expirationDate;
 
-    @Column (name = "cvv")
+    @Column(name = "cvv")
     private String cvv;
 
+    // getters and setters
 }

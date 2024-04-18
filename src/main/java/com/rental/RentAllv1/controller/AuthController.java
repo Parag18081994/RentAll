@@ -2,7 +2,9 @@ package com.rental.RentAllv1.controller;
 
 import com.rental.RentAllv1.config.JwtTokenProvider;
 import com.rental.RentAllv1.exception.UserException;
+import com.rental.RentAllv1.model.Cart;
 import com.rental.RentAllv1.model.User;
+import com.rental.RentAllv1.service.CartService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.BadCredentialsException;
@@ -29,12 +31,14 @@ public class AuthController {
     private PasswordEncoder passwordEncoder;
 
     private CustomeUserServiceImplementation customeUserService;
+    private CartService cartService;
 
-    public AuthController(UserRepository userRepository, CustomeUserServiceImplementation customeUserService, PasswordEncoder passwordEncoder, JwtTokenProvider jwtProvider) {
+    public AuthController(UserRepository userRepository, CustomeUserServiceImplementation customeUserService,CartService cartService, PasswordEncoder passwordEncoder, JwtTokenProvider jwtProvider) {
         this.userRepository = userRepository;
         this.customeUserService=customeUserService;
         this.passwordEncoder=passwordEncoder;
         this.jwtProvider=jwtProvider;
+        this.cartService=cartService;
     }
 
     @PostMapping("/signup")
@@ -61,6 +65,7 @@ public class AuthController {
 
         //save in database
         User savedUser = userRepository.save (createdUser);
+        Cart cart = cartService.createCart(savedUser);
 
         Authentication authentication = new UsernamePasswordAuthenticationToken (savedUser.getEmail (), savedUser.getPassword ());
         SecurityContextHolder.getContext ().setAuthentication (authentication);

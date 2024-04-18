@@ -62,7 +62,6 @@ public class AppConfig {
 
 @Configuration
 @EnableWebSecurity
-@EnableWebMvc
 public class AppConfig {
 
     @Bean
@@ -72,10 +71,6 @@ public class AppConfig {
                 .and()
                 .authorizeHttpRequests(Authorize -> Authorize
                         .requestMatchers("/api/**").authenticated()
-                        .requestMatchers("/v3/api-docs").permitAll()
-                        .requestMatchers("/swagger-resources/**").permitAll()
-                        .requestMatchers("/swagger-ui/**").permitAll()
-                        .requestMatchers("/webjars/**").permitAll()
                         .anyRequest().permitAll()
                 )
                 .addFilterBefore(new JwtTokenValidator(), BasicAuthenticationFilter.class)
