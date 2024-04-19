@@ -52,7 +52,7 @@ public class AuthController {
         //check if the user with email already exist
         User isEmailExist = userRepository.findByEmail (email);
         if (isEmailExist != null) {
-            throw new UserException ("Email already exist with another account-" + email);
+            throw new UserException ("Email Already Exist With Another Account - " + email);
         }
 
 
@@ -73,7 +73,7 @@ public class AuthController {
 
         AuthResponse authResponse = new AuthResponse ();
         authResponse.setJwt (token);
-        authResponse.setMessage ("Signup success");
+        authResponse.setMessage ("Signup Success");
         return new ResponseEntity<AuthResponse> (authResponse, HttpStatus.CREATED);
     }
 
@@ -93,7 +93,7 @@ public class AuthController {
 
     AuthResponse authResponse = new AuthResponse();
     authResponse.setJwt (token);
-    authResponse.setMessage ("Signin success");
+    authResponse.setMessage ("Signin Success");
 
     return new ResponseEntity<AuthResponse> (authResponse, HttpStatus.CREATED);
 
@@ -103,10 +103,10 @@ public class AuthController {
 
         UserDetails userDetails = customUserDetails.loadUserByUsername(username);
         if(userDetails==null){
-            throw new BadCredentialsException ("Invalid Username");
+            throw new BadCredentialsException ("Invalid Username !");
         }
         if(!passwordEncoder.matches (password,userDetails.getPassword ())){
-            throw new BadCredentialsException ("Invalid Password");
+            throw new BadCredentialsException ("Invalid Password !");
         }
         return new UsernamePasswordAuthenticationToken (userDetails,null,userDetails.getAuthorities ());
     }
