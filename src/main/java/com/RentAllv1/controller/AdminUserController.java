@@ -27,6 +27,4 @@ public class AdminUserController {
         List<User> user=userService.findAllUsers();
         return new ResponseEntity<>(user, HttpStatus.ACCEPTED);
     }
-
-
 }

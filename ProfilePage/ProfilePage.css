@@ -1,0 +1,63 @@
+.profile-page {
+    max-width: 800px;
+    margin: auto;
+    border: 1px solid #dbe2ef; /* Light blue border */
+    border-radius: 6px;
+    padding: 20px;
+    background: #f7faff; /* Very light blue background */
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    color: #1c3a57; /* Dark blue text */
+  }
+  
+  .profile-heading {
+    font-size: 2rem; /* Adjust font size as needed */
+    margin-bottom: 20px;
+    color: #007bff; /* Bright blue for heading */
+  }
+  
+  .profile-image-container {
+    margin-bottom: 40px; /* Adjust as needed */
+    /* Optional: Add a blue shadow or border around the image */
+    box-shadow: 0 0 8px 0 rgba(0, 123, 255, 0.5); 
+  }
+  
+  .profile-image {
+    width: 120px;
+    height: 120px;
+    border-radius: 50%;
+    object-fit: cover;
+    border: 3px solid #007bff; /* Blue border for profile image */
+  }
+  
+  .profile-info-container {
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+    margin-top: 40px; /* Adjust as needed to account for the profile-heading */
+  }
+  
+  .personal-info, .account-info {
+    width: 48%;
+  }
+  
+  .ratings {
+    font-weight: bold;
+    color: #0056b3; /* Darker blue for ratings */
+  }
+  
+  .profile-actions button {
+    margin: 10px;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    background-color: #007bff; /* Blue background for buttons */
+    color: white;
+  }
+  
+  .profile-actions button:hover {
+    background-color: #0056b3; /* Darker blue on hover for buttons */
+  }
+  
